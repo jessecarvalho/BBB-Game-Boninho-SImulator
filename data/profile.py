@@ -1,69 +1,40 @@
 from random import randint
-
+filesPersonality = open('csvFiles/personalidades.csv', encoding="utf-8")
+filesProfessions = open('csvFiles/profissoes.csv')
+filesTest = open('csvFiles/provas.csv')
 
 class Person:
-    def __init__(self, nome):
-        self.filesPersonality = open('csvFiles/personalidades.csv', encoding="utf-8")
-        self.filesProfessions = open('csvFiles/profissoes.csv', encoding="utf-8")
-        self.filesTest = open('csvFiles/provas.csv', encoding="utf-8")
-        self.name = nome
-        self.personalityList = []
-        self.tempList = []
-        self.personalityTraces = []
-    def numbersGenerator(self, limit):
-        tempNumber = randint(0, limit)
-        return tempNumber
+    def __init__(self):
+        pass
 
-    def readingFiles(self, file, list):
-        for record in file.splitlines():
-            list.append(record)
+    def sorteador(self):
+        return randint(0,15)
+
+    def validador(self, list, sorteado, personalityList):
+        if personalityList[sorteado] in list:
+            return True
+        else:
+            return False
 
     def personality(self):
-        self.personalityRead = self.filesPersonality.read()
+        self.personalityList = []
+        self.personalityTraces = []
+        self.personalityRead = filesPersonality.read()
         #Adiciona os textos do csv em uma lista
         for record in self.personalityRead.splitlines():
             self.personalityList.append(record)
         #Sorteia as personalidades
-        i = 0
-        while i < 3:
-            self.personalityId = self.numbersGenerator(15)
-            if self.personalityId in self.tempList:
-                pass
+        for i in range(0, 3):
+            self.actualTrace = self.sorteador()
+            if self.validador(self.personalityTraces, self.actualTrace, self.personalityList) == True:
+                self.personality()
             else:
-                self.personalityTraces.append(self.personalityList[self.personalityId])
-                self.tempList.append(self.personalityId)
-                i += 1
-        print(f'Os principais traços de: {self.name} são: {self.personalityTraces}')
-        self.filesPersonality.close()
+                self.personalityTraces.append(self.personalityList[self.actualTrace])
+        print(self.personalityTraces)
 
 
-    def profession(self):
-        self.professionRead = self.filesProfessions.read()
-        self.professionList = []
-        for record in self.professionRead.splitlines():
-            self.professionList.append(record)
-        self.professionId = self.numbersGenerator(1)
-        self.profession = self.professionList[self.professionId]
-        print(f'A profissão de {self.name} atualmente é: {self.profession}')
-        self.filesProfessions.close()
-
-    def hability(self):
-        self.habilityRead = self.filesTest.read()
-        self.habilityList = []
-        self.readingFiles(self.habilityRead, self.habilityList)
-        self.habilityId = self.numbersGenerator(5)
-        self.hability = self.habilityList[self.habilityId]
-        print(f"A principal hábilidade de {self.name} é: {self.hability}")
-        self.filesTest.close()
 
 
 if __name__ == '__main__':
-    Jonas = Person("Jessé")
+    Jonas = Person()
     Jonas.personality()
-    Jonas.profession()
-    Jonas.hability()
-    Mariana = Person("Lary")
-    Mariana.personality()
-    Mariana.profession()
-    Mariana.hability()
-
