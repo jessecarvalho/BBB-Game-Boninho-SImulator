@@ -18,7 +18,6 @@ class Cast:
         for i in self.castList:
             print(f'{self.count}º participante')
             print(f'Nome: {i.name}')
-            print(f'lastName: {i.lastName}')
             print(f'Genero: {i.gender}')
             print(f'Traços de personalidade: {i.personalityTraces}')
             print(f'Profissiões: {i.profession}')

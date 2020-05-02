@@ -12,7 +12,6 @@ class Person:
         self.filesEmojiFem = open('csvFiles/emojisFem.csv', encoding="utf-8")
         self.filesNameMasc = open('csvFiles/nomesMasc.csv', encoding="utf-8")
         self.filesNameFem = open('csvFiles/nomesFem.csv', encoding="utf-8")
-        self.filesSobrenomes = open('csvFiles/sobrenomes.csv', encoding="utf-8")
         self.personalityList = []
         self.tempList = []
         self.personalityTraces = []
@@ -32,30 +31,19 @@ class Person:
 
     def name(self):
         self.nameList = []
-        self.lastNameList = []
         if (self.gender == "Masculino"):
             self.nameRead = self.filesNameMasc.read()
             self.readingFiles(self.nameRead, self.nameList)
-            self.lastNameRead = self.filesSobrenomes.read()
-            self.readingFiles(self.lastNameRead, self.lastNameList)
             self.nameId = self.numbersGenerator(len(self.nameList) - 1)
-            self.lastNameId = self.numbersGenerator(len(self.lastNameList)-1)
             self.name = self.nameList[self.nameId]
-            self.lastName = self.lastNameList[self.lastNameId]
-            self.name = (f'{self.name} {self.lastName}')
-            self.filesSobrenomes.close()
+            self.name = self.name
             self.filesNameMasc.close()
         else:
             self.nameRead = self.filesNameFem.read()
             self.readingFiles(self.nameRead, self.nameList)
-            self.lastNameRead = self.filesSobrenomes.read()
-            self.readingFiles(self.lastNameRead, self.lastNameList)
-            self.lastNameId = self.numbersGenerator(len(self.lastNameList)-1)
             self.nameId = self.numbersGenerator(len(self.nameList) - 1)
             self.name = self.nameList[self.nameId]
-            self.lastName = self.lastNameList[self.lastNameId]
-            self.name = (f'{self.name} {self.lastName}')
-            self.filesSobrenomes.close()
+            self.name = self.name
             self.filesNameFem.close()
 
     def personality(self):
