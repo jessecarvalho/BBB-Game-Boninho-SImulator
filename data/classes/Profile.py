@@ -3,15 +3,16 @@ from random import randint
 
 class Person:
     def __init__(self):
-        self.filesPersonalityFem = open('../csvFiles/personalidadesFem.csv', encoding="utf-8")
-        self.filesPersonalityMasc = open('../csvFiles/personalidadesMasc.csv', encoding="utf-8")
-        self.filesProfessionsMasc = open('../csvFiles/profissoesMasc.csv', encoding="utf-8")
-        self.filesProfessionsFem = open('../csvFiles/profissoesFem.csv', encoding="utf-8")
-        self.filesTest = open('../csvFiles/provas.csv', encoding="utf-8")
-        self.filesEmojiMasc = open('../csvFiles/emojisMasc.csv', encoding="utf-8")
-        self.filesEmojiFem = open('../csvFiles/emojisFem.csv', encoding="utf-8")
-        self.filesNameMasc = open('../csvFiles/nomesMasc.csv', encoding="utf-8")
-        self.filesNameFem = open('../csvFiles/nomesFem.csv', encoding="utf-8")
+        self.filesPersonalityFem = open('csvFiles/personalidadesFem.csv', encoding="utf-8")
+        self.filesPersonalityMasc = open('csvFiles/personalidadesMasc.csv', encoding="utf-8")
+        self.filesProfessionsMasc = open('csvFiles/profissoesMasc.csv', encoding="utf-8")
+        self.filesProfessionsFem = open('csvFiles/profissoesFem.csv', encoding="utf-8")
+        self.filesTest = open('csvFiles/provas.csv', encoding="utf-8")
+        self.filesEmojiMasc = open('csvFiles/emojisMasc.csv', encoding="utf-8")
+        self.filesEmojiFem = open('csvFiles/emojisFem.csv', encoding="utf-8")
+        self.filesNameMasc = open('csvFiles/nomesMasc.csv', encoding="utf-8")
+        self.filesNameFem = open('csvFiles/nomesFem.csv', encoding="utf-8")
+        self.filesSobrenomes = open('csvFiles/sobrenomes.csv', encoding="utf-8")
         self.personalityList = []
         self.tempList = []
         self.personalityTraces = []
@@ -30,19 +31,31 @@ class Person:
         self.gender = self.genderList[self.genderId]
 
     def name(self):
+        self.nameList = []
+        self.lastNameList = []
         if (self.gender == "Masculino"):
             self.nameRead = self.filesNameMasc.read()
-            self.nameList = []
             self.readingFiles(self.nameRead, self.nameList)
+            self.lastNameRead = self.filesSobrenomes.read()
+            self.readingFiles(self.lastNameRead, self.lastNameList)
             self.nameId = self.numbersGenerator(len(self.nameList) - 1)
+            self.lastNameId = self.numbersGenerator(len(self.lastNameList)-1)
             self.name = self.nameList[self.nameId]
+            self.lastName = self.lastNameList[self.lastNameId]
+            self.name = (f'{self.name} {self.lastName}')
+            self.filesSobrenomes.close()
             self.filesNameMasc.close()
         else:
             self.nameRead = self.filesNameFem.read()
-            self.nameList = []
             self.readingFiles(self.nameRead, self.nameList)
+            self.lastNameRead = self.filesSobrenomes.read()
+            self.readingFiles(self.lastNameRead, self.lastNameList)
+            self.lastNameId = self.numbersGenerator(len(self.lastNameList)-1)
             self.nameId = self.numbersGenerator(len(self.nameList) - 1)
             self.name = self.nameList[self.nameId]
+            self.lastName = self.lastNameList[self.lastNameId]
+            self.name = (f'{self.name} {self.lastName}')
+            self.filesSobrenomes.close()
             self.filesNameFem.close()
 
     def personality(self):
@@ -137,10 +150,5 @@ class Person:
         self.followers()
         self.favoritism()
 
-
-
-if __name__ == '__main__':
-    Pessoa = Person("Jessé")
-    Pessoa.personGenerator()
 
 
