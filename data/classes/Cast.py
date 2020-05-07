@@ -1,5 +1,7 @@
 from random import randint
 from .Profile import Person
+from time import sleep
+
 
 class Cast:
     def __init__(self):
@@ -13,6 +15,7 @@ class Cast:
             self.Pessoa.personGenerator()
             self.castList.append(self.Pessoa)
             i += 1
+        return self.castList
     def show(self):
         self.count = 1
         for i in self.castList:
@@ -27,10 +30,8 @@ class Cast:
             print(f'Favoritismo: {i.favoritism}')
             print('-----------------------------')
             self.count += 1
-
-
-
-
+            print("Pressione ENTER para passar para o próximo")
+            input("> ")
 
 if __name__ == '__main__':
     cast = Cast()

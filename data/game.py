@@ -1,5 +1,6 @@
 from classes import Cast
 from actions import Prove
+from classes import Elimination
 
 class Game():
     def __init__(self):
@@ -11,7 +12,7 @@ class Game():
             print("-- 1 -> Gerar elenco --")
             decision = int(input("> "))
             if(decision == 1):
-                self.createCast()
+                self.cast = self.createCast()
                 break
             else:
                 print("Digito invalido")
@@ -31,46 +32,20 @@ class Game():
                 print("Digito invalido")
 
     def createCast(self):
-        self.Cast.castGenerador()
-
-    def actProve(self, proveType):
-        newProve = Prove.prove(self.Cast.castList)
-        print(f'-- Escolha a prova do {proveType} dessa semana: --')
-        print('-- 1 - Arremesso de Dardos --')
-        print('-- 2 - Arremesso de bolas --')
-        print('-- 3 - Velocidade --')
-        print('-- 4 - Resistência --')
-        print('-- 5 - Corrida --')
-        print('-- 6 - Sorte --')
-        decision = int(input("> "))
-        if decision == 1:
-            prove = newProve.proveChoose("Arremesso de Dardos")
-        elif decision == 2:
-            prove = newProve.proveChoose("Arremesso de bolas")
-        elif decision == 3:
-            prove = newProve.proveChoose("Velocidade")
-        elif decision == 4:
-            prove = newProve.proveChoose("Resistência")
-        elif decision == 5:
-            prove = newProve.proveChoose("Corrida")
-        elif decision == 6:
-            prove = newProve.proveChoose("Sorte")
-        else:
-            print('Digito inválido')
-            self.actProve(proveType)
-        newProve.setParticipants(prove)
-        return newProve.event().name
-
+        cast = self.Cast.castGenerador()
+        return cast
 
     def showCast(self):
         self.Cast.show()
 
+
     def main(self):
         self.start()
-        leader = game.actProve("lider")
-        print(f'O lider da semana será: {leader}')
-        angel = game.actProve("anjo")
-        print(f'O anjo da semana será: {angel}')
+        self.prove = Prove(self.cast)
+        self.leader = self.prove.leader()
+        self.elimination = Elimination(self.cast, self.leader)
+        leaderVote = self.elimination.leadervote()
+        print(leaderVote.name)
 
 
 if __name__ == '__main__':

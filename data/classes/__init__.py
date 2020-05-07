@@ -1,4 +1,5 @@
 from .Profile import Person
-from .Elenco import Cast
+from .Cast import Cast
+from .Elimination import Elimination
 
-__all__ = ['Person', 'Elenco']
+__all__ = ['Person', 'Cast', 'Elimination']

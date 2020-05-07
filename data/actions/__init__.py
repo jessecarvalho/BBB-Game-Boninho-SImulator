@@ -1,3 +1,3 @@
-from .Prove import prove
+from .Prove import Prove
 
-__all__ = ['prove']
+__all__ = ['Prove']
