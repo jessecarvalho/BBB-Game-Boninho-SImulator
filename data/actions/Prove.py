@@ -65,7 +65,7 @@ class Prove:
 
     def leader(self):
         self.proveChoose("leader")
-        self.setParticipants("Sorte")
+        self.setParticipants(self.actProve("leader"))
         leader = self.event()
         print(f'O lider da semana será: {leader.name}')
         return leader
