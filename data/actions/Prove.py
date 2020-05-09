@@ -69,3 +69,10 @@ class Prove:
         leader = self.event()
         print(f'O lider da semana será: {leader.name}')
         return leader
+
+    def angel(self):
+        self.proveChoose("angel")
+        self.setParticipants(self.actProve("angel"))
+        angel = self.event()
+        print(f'O anjo da semana será: {angel.name}')
+        return angel
