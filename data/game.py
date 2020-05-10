@@ -2,6 +2,7 @@
 from classes import Cast
 from actions import Prove
 from classes import Elimination
+from time import sleep
 
 # Criação da classe principal do jogo
 class Game():
@@ -54,11 +55,12 @@ class Game():
     def main(self):
         # Chama a função start que traz o roteiro inicial
         self.start()
+        print("           Bem vindo, vamos começar o jogo!          ")
         # Roteiro do jogo até a grande final
         while len(self.cast) > 3:
-            print(len(self.cast))
             # cria a instância da prova do lider do modelo provas
             self.leaderProve = Prove(self.cast)
+            print("________________________________________________________")
             # executa a prova do lider armazenando o lider
             self.leader = self.leaderProve.leader()
             # cria a instância da prova do anjo do modelo provas
@@ -74,15 +76,22 @@ class Game():
             # Esse método irá trazer o imunizado
             immunezed = self.elimination.immunezed()
             # Exibição ao player dos emparedados e imunizado
+            print(f'Vamos montar o paredão dessa semana!')
+            print("----------------------------------------------------------")
+            print('...')
+            sleep(3)
             print(f"O anjo imunizou {immunezed}")
+            sleep(1)
             print(f"O voto do lider foi em: {leaderVote}")
+            sleep(1)
             print(f"O grupo no confessionario votou em: {othersVote}")
+            sleep(1)
             print(f"O terceiro a ir ao paredão é: {thirdPerson}")
+            sleep(1)
             # Método para eliminação
+            print("       Escolha quem será eliminado!     ")
+            print("Para votar apenas escreva o nome do emparedado")
             self.elimination.toeliminate()
-
-
-
 
 if __name__ == '__main__':
     game = Game()

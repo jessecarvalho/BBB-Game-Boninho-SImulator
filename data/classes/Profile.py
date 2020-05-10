@@ -177,7 +177,7 @@ class Person:
             # Inicializar lista
             self.emojiList = []
             # Realizar leitura do arquivo csv
-            self.readingFiles(self.emojisRead, self.emojiList)
+            self.readingFiles(self.filesEmojiFem.read(), self.emojiList)
             # Gerar id
             self.emojiId = self.numbersGenerator(len(self.emojiList) - 1)
             # Gerar emoji a partir do ID
