@@ -7,6 +7,10 @@ class Person:
         # Abertura de todos os itens csv
         self.filesPersonalityFem = open('csvFiles/personalidadesFem.csv', encoding="utf-8")
         self.filesPersonalityMasc = open('csvFiles/personalidadesMasc.csv', encoding="utf-8")
+        # ^^ EXCLUIR
+        self.filesPersonalityOne = open('csvFiles/personalidades/personalidades1-3.csv', encoding="utf-8")
+        self.filesPersonalityTwo = open('csvFiles/personalidades/personalidades2-3.csv', encoding="utf-8")
+        self.filesPersonalityThree = open('csvFiles/personalidades/personalidades3-3.csv', encoding="utf-8")
         self.filesProfessionsMasc = open('csvFiles/profissoesMasc.csv', encoding="utf-8")
         self.filesProfessionsFem = open('csvFiles/profissoesFem.csv', encoding="utf-8")
         self.filesTest = open('csvFiles/provas.csv', encoding="utf-8")
@@ -17,7 +21,11 @@ class Person:
         # Inicialização de listas
         self.personalityList = []
         self.tempList = []
-        self.personalityTraces = []
+        self.listPersonality = []
+        self.listPersonality2 = []
+        self.listPersonality3 = []
+        self.trace = []
+        self.listRandom = []
 
     # Gerador de números aleatórios
     def numbersGenerator(self, limit):
@@ -30,6 +38,10 @@ class Person:
         for record in file.splitlines():
             # Adicionar linha a linha numa lista
             list.append(record)
+
+    def random(self, list):
+        random = randint(0, len(list) - 1)
+        return list[random]
 
     # Gerador de genêro
     def gender(self):
@@ -67,51 +79,17 @@ class Person:
 
     # Método gerador de personalidade
     def personality(self):
-        # Rota para caso o genêro seja masculino
-        if (self.gender == "Masculino"):
-            # Chamar metodo de leitura para ler todas as personalidades possíveis
-            self.personalityRead = self.filesPersonalityMasc.read()
-            # Adiciona o conteúdo do csv em uma lista
-            for record in self.personalityRead.splitlines():
-                self.personalityList.append(record)
-            # Gera o contador de personalidade setado em 0
-            i = 0
-            # Enquanto estiver menos de 3 personalidades armazenadas
-            while i < 3:
-                # Gerador de id
-                self.personalityId = self.numbersGenerator(len(self.personalityList)-1)
-                # Caso a personalidade já estiver adicionada continuar para gerar outra
-                if self.personalityId in self.tempList:
-                    pass
-                # Caso não esteja adicionada adicionar e atualizar o contador
-                else:
-                    self.personalityTraces.append(self.personalityList[self.personalityId])
-                    self.tempList.append(self.personalityId)
-                    i += 1
-            # Após fim de geração fechar o arquivo csv
-            self.filesPersonalityMasc.close()
-        else:
-            # Chamar metodo de leitura para ler todas as personalidades possíveis
-            self.personalityRead = self.filesPersonalityFem.read()
-            # Adiciona o conteúdo do csv em uma lista
-            for record in self.personalityRead.splitlines():
-                self.personalityList.append(record)
-            # Gera o contador de personalidade setado em 0
-            i = 0
-            # Enquanto estiver menos de 3 personalidades armazenadas
-            while i < 3:
-                # Gerador de id
-                self.personalityId = self.numbersGenerator(len(self.personalityList) - 1)
-                # Caso a personalidade já estiver adicionada continuar para gerar outra
-                if self.personalityId in self.tempList:
-                    pass
-                # Caso não esteja adicionada adicionar e atualizar o contador
-                else:
-                    self.personalityTraces.append(self.personalityList[self.personalityId])
-                    self.tempList.append(self.personalityId)
-                    i += 1
-            # Após fim de geração fechar o arquivo csv
-            self.filesPersonalityFem.close()
+        points = 0
+        self.readingFiles(self.filesPersonalityOne.read(), self.listPersonality)
+        self.listRandom.append(self.random(self.listPersonality))
+        self.readingFiles(self.filesPersonalityTwo.read(), self.listPersonality2)
+        self.listRandom.append(self.random(self.listPersonality2))
+        self.readingFiles(self.filesPersonalityThree.read(), self.listPersonality3)
+        self.listRandom.append(self.random(self.listPersonality3))
+        for record in self.listRandom:
+            self.personalityList.append(record[0:(record.find("="))])
+            points += float(record[(record.find("=")) + 1:])
+        self.points = points * 10 * 3 / 4
 
     # Método gerador de profissao
     def profession(self):
@@ -190,8 +168,9 @@ class Person:
         self.followers = self.numbersGenerator(100000)
 
     # Método gerador de carinho do público
-    def favoritism(self):
-        self.favoritism = self.numbersGenerator(20)
+    def support(self):
+        self.support = self.points
+        return self.support
 
     # Método para gerenciar a criação de pessoas
     def personGenerator(self):
@@ -202,7 +181,7 @@ class Person:
         self.hability()
         self.emoji()
         self.followers()
-        self.favoritism()
+        self.support()
 
 
 
