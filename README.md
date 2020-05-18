@@ -5,6 +5,8 @@ Feito:
 [x] Criar e utilizar arquivos csv para diversificar personagens.
 [x] Desenvolver sistema de votos entre os personagens.
 [x] Desenvolver sistema de eliminação.
+[x] Desenvolver apoio do público ao personagem.
+[x]
 
 
 Atualizações futuras:
@@ -13,6 +15,5 @@ Atualizações futuras:
 [] Criar relacionamento entre personagens.
 [] Permitir que personagens tomem suas decisões baseado em seus relacionamentos e características.
 [] Desenvolver eventos.
-[] Desenvolver apoio do público ao personagem.
 [] Automatizar votos de eliminação permitindo ao player apenas influênciar na decisão e não mais toma-la sozinho.
 [] Desenvolve a final.

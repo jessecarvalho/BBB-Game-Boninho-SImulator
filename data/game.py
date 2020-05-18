@@ -69,12 +69,12 @@ class Game():
             self.angel = self.angelProve.angel()
             # Cria a instância de eliminações
             self.elimination = Elimination(self.cast, self.leader, self.angel)
+            # Esse método irá trazer o imunizado
+            immunezed = self.elimination.immunezed()
             # A seguir executa-se métodos que iram gerar os votos e emparedados
             leaderVote = self.elimination.leadervote()
             othersVote = self.elimination.othersvote()
             thirdPerson = self.elimination.thirdperson()
-            # Esse método irá trazer o imunizado
-            immunezed = self.elimination.immunezed()
             # Exibição ao player dos emparedados e imunizado
             print(f'Vamos montar o paredão dessa semana!')
             print("----------------------------------------------------------")

@@ -48,7 +48,7 @@ class Prove:
             if self.participants[random].life == 0:
                 self.cont += 1
                 print(f'O {self.cont}º eliminado da prova foi: {self.participants[random].name}')
-                sleep(1)
+                #sleep(1)
                 self.participants.remove(self.participants[random])
         # O último participante a sobrar leva a prova
         return self.participants[0]

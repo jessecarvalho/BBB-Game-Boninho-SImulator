@@ -11,23 +11,27 @@ class Elimination:
         # Gera o id aleatóriamente baseado no tamanho do elenco
         id = randint(0, len(self.cast) - 1)
         # While para evitar possíveis erros de regra de negócio
-        while self.cast[id] == self.leader or self.cast[id] == self.angel:
+        if self.cast[id] == self.leader or self.cast[id] == self.angel:
             # Caso seja detectado o erro chamar novamente o método
             id = randint(0, len(self.cast) - 1)
+            self.immunezed()
         else:
             # Atribui o participante imunizado na variável
-            self.immunezed = self.cast[id]
+            self.immune = self.cast[id]
             # Retorna o nome do imunizado
-            return self.immunezed.name
+            return self.immune.name
 
     # Método para gerar o voto do líder
     def leadervote(self):
         # Gera o id aleatóriamente
         idVote = randint(0, len(self.cast) - 1)
+        print(self.cast[idVote].name, self.leader.name, self.immune.name)
         # While para evitar possíveis erros de regra de negócio
-        while self.cast[idVote] == self.leader or self.cast[idVote] == self.immunezed:
+        if self.cast[idVote] == self.leader or self.cast[idVote] == self.immune:
+            print('sa')
             # Caso seja detectado o erro chamar novamente o método
             idVote = randint(0, len(self.cast) - 1)
+            self.leaderVote()
         else:
             # Atribui o voto do lider na variável
             self.leaderVote = self.cast[idVote]
@@ -38,9 +42,12 @@ class Elimination:
         # Gera o id aleatóriamente
         idVote = randint(0, len(self.cast)-1)
         # While para evitar possíveis erros de regra de negócio
-        while self.cast[idVote] == self.leader or self.cast[idVote] == self.leadervote or self.cast[idVote] == self.immunezed:
+        print(self.cast[idVote].name, self.leader.name, self.leaderVote.name, self.immune.name)
+        if self.cast[idVote] == self.leader or self.cast[idVote] == self.leaderVote or self.cast[idVote] == self.immune:
             # Caso seja detectado o erro chamar novamente o método
             idVote = randint(0, len(self.cast)-1)
+            print('a')
+            self.othersVote()
         else:
             # Atribui o jogador mais votado na variável
             self.othersVote = self.cast[idVote]
@@ -51,10 +58,11 @@ class Elimination:
         # Gera o id aleatóriamente
         idVote = randint(0, len(self.cast)-1)
         # While para evitar possíveis erros de regra de negócio
-        while self.cast[idVote] == self.leadervote or self.cast[idVote] == self.othersVote or self.cast[idVote] == self.leader or \
-                self.cast[idVote] == self.immunezed:
+        if self.cast[idVote] == self.leaderVote or self.cast[idVote] == self.othersVote or self.cast[idVote] == self.leader or \
+                self.cast[idVote] == self.immune:
             # Caso seja detectado o erro chamar novamente o método
             idVote = randint(0, len(self.cast)-1)
+            self.thirdperson()
         else:
             # Atribui o terceiro emparedado na variável
             self.thirdVote = self.cast[idVote]
@@ -62,15 +70,14 @@ class Elimination:
             return self.thirdVote.name
 
     def toeliminate(self):
-        # Recebe do usuário a escolha de quem eliminar
-        decision = input("> ")
-        # Verificador para descobrir se o usuário digitou o nome correto de um emparedadp
-        if decision == self.leaderVote.name or decision == self.othersVote.name or decision == self.thirdVote.name:
-            # Remover o participante
-            for i in self.cast:
-                if i.name == decision:
-                    self.cast.remove(i)
+        if self.leaderVote.support > self.othersVote.support and self.leaderVote.support > self.thirdVote.support:
+            self.eliminated = self.leaderVote
+        elif self.leaderVote.support < self.othersVote.support and self.othersVote.support > self.thirdVote.support:
+            self.eliminated = self.othersVote
         else:
-            # Para o caso do usuário digitar um valor inválido
-            print("digite um valor válido!")
-            self.toeliminate()
+            self.eliminated = self.thirdVote
+        for i in self.cast:
+            if i == self.eliminated:
+                print(i.name)
+                self.cast.remove(i)
+
