@@ -10,30 +10,39 @@ class Game():
     def __init__(self):
         # Instância a classe Cast para criação do elenco
         self.Cast = Cast()
+        self.leaderVote = False
+        self.othersVote = False
+        self.thirdVote = False
+        self.immunezed = False
 
     # Inicializa o game com um inicio padronizado
     def start(self):
         # Menu de navegação do player
         while True:
             print("-- Escolha uma opção --")
-            print("-- 1 -> Gerar elenco --")
+            print("-- 1 -> Gerar elenco aleatóriamente --")
+            print("-- 2 -> Escolher participantes --")
             decision = int(input("> "))
             if(decision == 1):
                 # Chama a função que cria o elenco
-                self.cast = self.createcast()
+                self.cast = self.createcast(True)
+                break
+            elif(decision == 2):
+                self.cast = self.createcast(False)
                 break
             else:
                 print("Digito invalido")
         while True:
             # Menu de navegação do player
             print("-- Elenco criado com sucesso! --")
-            print("-- 1 -> Gerar outro elenco --")
+            print("-- Escolha uma opção --")
+            print("-- 1 -> Gerar outro elenco aleatóriamente --")
             print("-- 2 -> Ver elenco --")
             print("-- 3 -> Avançar para primeira prova do lider --")
             decision = int(input("> "))
             if(decision == 1):
                 # Recria o elenco caso usuario deseje
-                self.createcast()
+                self.createcast(True)
             elif(decision == 2):
                 # Chama-se a função para exibir os participantes
                 self.showcast()
@@ -42,9 +51,12 @@ class Game():
             else:
                 print("Digito invalido")
 
-    def createcast(self):
+    def createcast(self, random):
         # Cria-se o elenco
-        cast = self.Cast.castGenerador()
+        if random == True:
+            cast = self.Cast.castGenerator()
+        else:
+            cast = self.Cast.newCastGenerator()
         return cast
 
     def showcast(self):
@@ -70,28 +82,39 @@ class Game():
             # Cria a instância de eliminações
             self.elimination = Elimination(self.cast, self.leader, self.angel)
             # Esse método irá trazer o imunizado
-            immunezed = self.elimination.immunezed()
+            while self.immunezed == False:
+                self.immunezed = self.elimination.immunezed()
             # A seguir executa-se métodos que iram gerar os votos e emparedados
-            leaderVote = self.elimination.leadervote()
-            othersVote = self.elimination.othersvote()
-            thirdPerson = self.elimination.thirdperson()
+            while self.leaderVote == False:
+                self.leaderVote = self.elimination.leadervote()
+            while self.othersVote == False:
+                self.othersVote = self.elimination.othersvote()
+            while self.thirdVote == False:
+                self.thirdVote = self.elimination.thirdperson()
             # Exibição ao player dos emparedados e imunizado
             print(f'Vamos montar o paredão dessa semana!')
             print("----------------------------------------------------------")
             print('...')
             sleep(3)
-            print(f"O anjo imunizou {immunezed}")
+            print(f"O anjo imunizou {self.immunezed}")
             sleep(1)
-            print(f"O voto do lider foi em: {leaderVote}")
+            print(f"O voto do lider foi em: {self.leaderVote}")
             sleep(1)
-            print(f"O grupo no confessionario votou em: {othersVote}")
+            print(f"O grupo no confessionario votou em: {self.othersVote}")
             sleep(1)
-            print(f"O terceiro a ir ao paredão é: {thirdPerson}")
+            print(f"O terceiro a ir ao paredão é: {self.thirdVote}")
             sleep(1)
             # Método para eliminação
-            print("       Escolha quem será eliminado!     ")
-            print("Para votar apenas escreva o nome do emparedado")
+            print(f"Momento de tensão no sofá")
+            sleep(1)
+            print(f"Batimentos cardiacos: {self.leaderVote}: 120, {self.othersVote}: 95, {self.thirdVote}: 111")
+            sleep(2)
             self.elimination.toeliminate()
+            sleep(2)
+            print("O tempo continua e vamos para mais uma semana")
+            sleep(1)
+            print("...")
+            sleep(3)
 
 if __name__ == '__main__':
     game = Game()

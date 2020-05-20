@@ -48,10 +48,17 @@ class Prove:
             if self.participants[random].life == 0:
                 self.cont += 1
                 print(f'O {self.cont}º eliminado da prova foi: {self.participants[random].name}')
-                #sleep(1)
+                sleep(1)
                 self.participants.remove(self.participants[random])
         # O último participante a sobrar leva a prova
         return self.participants[0]
+
+    def showHabilitys(self, prove):
+        privileged = []
+        for i in self.participants:
+            if i.hability == prove:
+                privileged.append(i.name)
+        return privileged
 
     # Escolha de qual modalidade será a prova
     def actProve(self, proveType):
@@ -60,17 +67,23 @@ class Prove:
         print(f'          Escolha a prova do {proveType} dessa semana:         ')
         print("Para escolher digite o número ao lado da prova desejada")
         print("----------------------------------------------------------")
-        print('-- 1 - Arremesso de Dardos --')
-        print('-- 2 - Arremesso de bolas --')
-        print('-- 3 - Velocidade --')
-        print('-- 4 - Resistência --')
-        print('-- 5 - Corrida --')
-        print('-- 6 - Sorte --')
+        self.privileged = self.showHabilitys("Arremesso de dardos")
+        print(f'-- 1 - Arremesso de Dardos -- Possíveis privilegiados: {self.privileged}')
+        self.privileged = self.showHabilitys("Arremesso de bolas")
+        print(f'-- 2 - Arremesso de bolas -- Possíveis privilegiados: {self.privileged}')
+        self.privileged = self.showHabilitys("Velocidade")
+        print(f'-- 3 - Velocidade -- Possíveis privilegiados: {self.privileged}')
+        self.privileged = self.showHabilitys("Resistência")
+        print(f'-- 4 - Resistência -- Possíveis privilegiados: {self.privileged}')
+        self.privileged = self.showHabilitys("Corrida")
+        print(f'-- 5 - Corrida -- Possíveis privilegiados: {self.privileged}')
+        self.privileged = self.showHabilitys("Sorte")
+        print(f'-- 6 - Sorte -- Possíveis privilegiados: {self.privileged}')
         # Usuário deverá decidir qual prova será realizada a partir do ID dela
         decision = int(input("> "))
         # A partir do id digitado o método retornara a prova escolhida
         if decision == 1:
-            return "Arremesso de Dardos"
+            return "Arremesso de dardos"
         elif decision == 2:
             return "Arremesso de bolas"
         elif decision == 3:

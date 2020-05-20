@@ -6,7 +6,7 @@ Feito:
 [x] Desenvolver sistema de votos entre os personagens.
 [x] Desenvolver sistema de eliminação.
 [x] Desenvolver apoio do público ao personagem.
-[x]
+[x] Automatizar votos de eliminação permitindo ao player apenas influênciar na decisão e não mais toma-la sozinho.
 
 
 Atualizações futuras:
@@ -15,5 +15,4 @@ Atualizações futuras:
 [] Criar relacionamento entre personagens.
 [] Permitir que personagens tomem suas decisões baseado em seus relacionamentos e características.
 [] Desenvolver eventos.
-[] Automatizar votos de eliminação permitindo ao player apenas influênciar na decisão e não mais toma-la sozinho.
-[] Desenvolve a final.
+[] Desenvolver a final.

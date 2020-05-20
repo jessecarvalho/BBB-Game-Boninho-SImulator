@@ -14,7 +14,7 @@ class Elimination:
         if self.cast[id] == self.leader or self.cast[id] == self.angel:
             # Caso seja detectado o erro chamar novamente o método
             id = randint(0, len(self.cast) - 1)
-            self.immunezed()
+            return False
         else:
             # Atribui o participante imunizado na variável
             self.immune = self.cast[id]
@@ -25,13 +25,11 @@ class Elimination:
     def leadervote(self):
         # Gera o id aleatóriamente
         idVote = randint(0, len(self.cast) - 1)
-        print(self.cast[idVote].name, self.leader.name, self.immune.name)
         # While para evitar possíveis erros de regra de negócio
         if self.cast[idVote] == self.leader or self.cast[idVote] == self.immune:
-            print('sa')
             # Caso seja detectado o erro chamar novamente o método
             idVote = randint(0, len(self.cast) - 1)
-            self.leaderVote()
+            return False
         else:
             # Atribui o voto do lider na variável
             self.leaderVote = self.cast[idVote]
@@ -42,12 +40,9 @@ class Elimination:
         # Gera o id aleatóriamente
         idVote = randint(0, len(self.cast)-1)
         # While para evitar possíveis erros de regra de negócio
-        print(self.cast[idVote].name, self.leader.name, self.leaderVote.name, self.immune.name)
         if self.cast[idVote] == self.leader or self.cast[idVote] == self.leaderVote or self.cast[idVote] == self.immune:
             # Caso seja detectado o erro chamar novamente o método
-            idVote = randint(0, len(self.cast)-1)
-            print('a')
-            self.othersVote()
+            return False
         else:
             # Atribui o jogador mais votado na variável
             self.othersVote = self.cast[idVote]
@@ -62,7 +57,7 @@ class Elimination:
                 self.cast[idVote] == self.immune:
             # Caso seja detectado o erro chamar novamente o método
             idVote = randint(0, len(self.cast)-1)
-            self.thirdperson()
+            return False
         else:
             # Atribui o terceiro emparedado na variável
             self.thirdVote = self.cast[idVote]
@@ -76,8 +71,8 @@ class Elimination:
             self.eliminated = self.othersVote
         else:
             self.eliminated = self.thirdVote
+        print(f"Após um longo discurso o eliminado da semana é revelado, pode vir {self.eliminated.name}")
         for i in self.cast:
             if i == self.eliminated:
-                print(i.name)
                 self.cast.remove(i)
 

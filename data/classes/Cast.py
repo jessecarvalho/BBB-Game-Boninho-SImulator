@@ -12,7 +12,44 @@ class Cast:
         # "vida" de cada participante setado incialmente em 0
         self.life = 0;
     # Método para criação do elenco
-    def castGenerador(self):
+
+
+    def newShow(self, person):
+        print(f'Nome: {person.name}')
+        print(f'Genero: {person.gender}')
+        print(f'Traços de personalidade: {person.personalityList}')
+        print(f'Profissião: {person.profession}')
+        print(f'Habilidades: {person.hability}')
+        print(f'Emoji: {person.emoji}')
+        print(f'Seguidores: {person.followers}')
+        print(f'% de apoiadores: {person.support}')
+        print('-----------------------------')
+
+
+    def newCastGenerator(self):
+        i = 0
+        self.castList = []
+        while i < self.numParticipant:
+            self.Pessoa = Person()
+            self.Pessoa.personGenerator()
+            self.newShow(self.Pessoa)
+            print("Para aprovar o candidato digite 's' ")
+            print("Para reprova-lo digite 'n'")
+            decision = input("> ")
+            if decision == "s" or decision =="S":
+                print('-----------------------------')
+                print("Candidato aprovado!")
+                print('-----------------------------')
+                self.castList.append(self.Pessoa)
+                i += 1
+                print(f"Faltam apenas {self.numParticipant - i} candidatos para fechar o elenco!")
+            else:
+                print('-----------------------------')
+                print("Candidato Reprovado!")
+                print('-----------------------------')
+        return self.castList
+
+    def castGenerator(self):
         # Contador setado em 0
         i = 0
         # Lista vazia criada para armazenar o elenco
@@ -30,6 +67,7 @@ class Cast:
         # Após fim de while retornar o elenco
         return self.castList
     # Método para exibir o elenco
+
     def show(self):
         # Contador setado em 1
         self.count = 1
