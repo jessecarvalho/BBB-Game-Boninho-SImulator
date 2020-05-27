@@ -84,6 +84,7 @@ class Game():
             # executa a prova do lider armazenando o lider
             self.leader = self.leaderProve.leader()
             # cria a instância da prova do anjo do modelo provas
+            sleep(3)
             self.angelProve = Prove(self.cast)
             # executa a prova do anjo armazenando o anjo
             self.angel = self.angelProve.angel()
@@ -101,6 +102,7 @@ class Game():
             while self.thirdVote == False:
                 self.thirdVote = self.elimination.thirdperson()
             # Exibição ao player dos emparedados e imunizado
+            print("----------------------------------------------------------")
             print(f'Vamos montar o paredão dessa semana!')
             print("----------------------------------------------------------")
             sleep(3)
@@ -112,6 +114,7 @@ class Game():
             sleep(1)
             print(f"O terceiro a ir ao paredão é: {self.thirdVote.name}")
             sleep(1)
+            print("----------------------------------------------------------")
             # Intervenção divina?
             greatWall = [self.leaderVote, self.othersVote, self.thirdVote]
             self.elimination.intervention(greatWall)

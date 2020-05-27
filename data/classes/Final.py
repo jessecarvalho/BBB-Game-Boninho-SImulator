@@ -23,7 +23,6 @@ class Final:
             self.theFinal()
         for i in self.finalists:
             if i == self.playerChoose:
-                print(i.name + "aaaaa")
                 i.support += 10
         if self.finalists[0].support > self.finalists[1].support and self.finalists[0].support > self.finalists[2].support:
             print(self.finalists[0].name)

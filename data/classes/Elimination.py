@@ -67,16 +67,20 @@ class Elimination:
             return self.thirdVote
 
     def intervention(self, greatWall):
+        sleep(1)
         print("Neste momento, você irá intervir a favor de um participante.")
+        sleep(3)
         print("Escolha o participante que você deseja intervir pelo número que ele representa")
+        sleep(3)
         cont = 0
         for i in greatWall:
             cont += 1
-            print(f"{cont} para votar em: {i.name}")
-        self.vote = int(input("> "))
-        if 0 < self.vote <= 3:
-            self.vote = greatWall[self.vote]
-            print(greatWall[self.vote])
+            print(f"{cont} para apoiar {i.name}")
+        self.vote = input("> ")
+        print(self.vote)
+        if 0 < int(self.vote) <= 3:
+            self.vote = greatWall[int(self.vote)-1]
+            print(self.vote.name)
         else:
             print("Você deve digitar um valor de 1 a 3")
             sleep(3)
