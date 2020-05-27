@@ -1,10 +1,12 @@
 from random import randint
+from time import sleep
 
 class Elimination:
     def __init__(self, cast, leader, angel):
         self.cast = cast
         self.leader = leader
         self.angel = angel
+        self.immune = "innative"
 
     # Método para gerar o jogador imunizado
     def immunezed(self):
@@ -19,7 +21,7 @@ class Elimination:
             # Atribui o participante imunizado na variável
             self.immune = self.cast[id]
             # Retorna o nome do imunizado
-            return self.immune.name
+            return self.immune
 
     # Método para gerar o voto do líder
     def leadervote(self):
@@ -34,7 +36,7 @@ class Elimination:
             # Atribui o voto do lider na variável
             self.leaderVote = self.cast[idVote]
             # Retorna o nome do indicado pelo líder
-            return self.leaderVote.name
+            return self.leaderVote
     # Método para gerar o voto popular
     def othersvote(self):
         # Gera o id aleatóriamente
@@ -47,7 +49,7 @@ class Elimination:
             # Atribui o jogador mais votado na variável
             self.othersVote = self.cast[idVote]
             # Retorna o nome do mais votado
-            return self.othersVote.name
+            return self.othersVote
 
     def thirdperson(self):
         # Gera o id aleatóriamente
@@ -62,16 +64,44 @@ class Elimination:
             # Atribui o terceiro emparedado na variável
             self.thirdVote = self.cast[idVote]
             # Retorna o nome do terceiro emparedado
-            return self.thirdVote.name
+            return self.thirdVote
+
+    def intervention(self, greatWall):
+        print("Neste momento, você irá intervir a favor de um participante.")
+        print("Escolha o participante que você deseja intervir pelo número que ele representa")
+        cont = 0
+        for i in greatWall:
+            cont += 1
+            print(f"{cont} para votar em: {i.name}")
+        self.vote = int(input("> "))
+        if 0 < self.vote <= 3:
+            self.vote = greatWall[self.vote]
+            print(greatWall[self.vote])
+        else:
+            print("Você deve digitar um valor de 1 a 3")
+            sleep(3)
+            self.intervention(greatWall)
 
     def toeliminate(self):
-        if self.leaderVote.support > self.othersVote.support and self.leaderVote.support > self.thirdVote.support:
+        if self.leaderVote == self.vote:
+            self.leaderVote.support += 10
+        if self.othersVote == self.vote:
+            self.othersVote.support += 10
+        if self.thirdVote == self.vote:
+            self.thirdVote.support += 10
+        if self.leaderVote.support < self.othersVote.support and self.leaderVote.support < self.thirdVote.support:
             self.eliminated = self.leaderVote
-        elif self.leaderVote.support < self.othersVote.support and self.othersVote.support > self.thirdVote.support:
+        elif self.leaderVote.support < self.othersVote.support < self.thirdVote.support:
             self.eliminated = self.othersVote
         else:
             self.eliminated = self.thirdVote
         print(f"Após um longo discurso o eliminado da semana é revelado, pode vir {self.eliminated.name}")
+        if self.leaderVote == self.vote:
+            self.leaderVote.support -= 10
+        if self.othersVote == self.vote:
+            self.othersVote.support -= 10
+        if self.thirdVote == self.vote:
+            self.thirdVote.support -= 10
         for i in self.cast:
             if i == self.eliminated:
                 self.cast.remove(i)

@@ -1,8 +1,12 @@
 # Imports de classes externas
 from classes import Cast
-from actions import Prove
 from classes import Elimination
+from classes import Events
+from classes import Final
+from actions import Prove
 from time import sleep
+from random import randint
+
 
 # Criação da classe principal do jogo
 class Game():
@@ -23,11 +27,11 @@ class Game():
             print("-- 1 -> Gerar elenco aleatóriamente --")
             print("-- 2 -> Escolher participantes --")
             decision = int(input("> "))
-            if(decision == 1):
+            if (decision == 1):
                 # Chama a função que cria o elenco
                 self.cast = self.createcast(True)
                 break
-            elif(decision == 2):
+            elif (decision == 2):
                 self.cast = self.createcast(False)
                 break
             else:
@@ -40,13 +44,13 @@ class Game():
             print("-- 2 -> Ver elenco --")
             print("-- 3 -> Avançar para primeira prova do lider --")
             decision = int(input("> "))
-            if(decision == 1):
+            if (decision == 1):
                 # Recria o elenco caso usuario deseje
                 self.createcast(True)
-            elif(decision == 2):
+            elif (decision == 2):
                 # Chama-se a função para exibir os participantes
                 self.showcast()
-            elif(decision == 3):
+            elif (decision == 3):
                 break
             else:
                 print("Digito invalido")
@@ -70,6 +74,10 @@ class Game():
         print("           Bem vindo, vamos começar o jogo!          ")
         # Roteiro do jogo até a grande final
         while len(self.cast) > 3:
+            self.immunezed = False
+            self.leaderVote = False
+            self.othersVote = False
+            self.thirdVote = False
             # cria a instância da prova do lider do modelo provas
             self.leaderProve = Prove(self.cast)
             print("________________________________________________________")
@@ -82,8 +90,9 @@ class Game():
             # Cria a instância de eliminações
             self.elimination = Elimination(self.cast, self.leader, self.angel)
             # Esse método irá trazer o imunizado
-            while self.immunezed == False:
-                self.immunezed = self.elimination.immunezed()
+            if len(self.cast) > 4:
+                while self.immunezed == False:
+                    self.immunezed = self.elimination.immunezed()
             # A seguir executa-se métodos que iram gerar os votos e emparedados
             while self.leaderVote == False:
                 self.leaderVote = self.elimination.leadervote()
@@ -94,27 +103,43 @@ class Game():
             # Exibição ao player dos emparedados e imunizado
             print(f'Vamos montar o paredão dessa semana!')
             print("----------------------------------------------------------")
-            print('...')
             sleep(3)
-            print(f"O anjo imunizou {self.immunezed}")
+            print(f"O anjo imunizou {self.immunezed.name}") if self.immunezed is not False else ""
             sleep(1)
-            print(f"O voto do lider foi em: {self.leaderVote}")
+            print(f"O voto do lider foi em: {self.leaderVote.name}")
             sleep(1)
-            print(f"O grupo no confessionario votou em: {self.othersVote}")
+            print(f"O grupo no confessionario votou em: {self.othersVote.name}")
             sleep(1)
-            print(f"O terceiro a ir ao paredão é: {self.thirdVote}")
+            print(f"O terceiro a ir ao paredão é: {self.thirdVote.name}")
             sleep(1)
+            # Intervenção divina?
+            greatWall = [self.leaderVote, self.othersVote, self.thirdVote]
+            self.elimination.intervention(greatWall)
             # Método para eliminação
             print(f"Momento de tensão no sofá")
             sleep(1)
-            print(f"Batimentos cardiacos: {self.leaderVote}: 120, {self.othersVote}: 95, {self.thirdVote}: 111")
+            print(
+                f"Batimentos cardiacos: {self.leaderVote.name}: {randint(80, 140)}, {self.othersVote.name}: {randint(80, 140)}, {self.thirdVote.name}: {randint(80, 140)}")
             sleep(2)
             self.elimination.toeliminate()
             sleep(2)
             print("O tempo continua e vamos para mais uma semana")
             sleep(1)
             print("...")
+            print("Listamos para você os principais acontecimentos da semana: ")
+            event = Events()
+            event.eventsAct(self.cast)
             sleep(3)
+        print("Na casa restam apenas mais 3.")
+        print("Isso significa que chegamos na grande final!")
+        finalists = []
+        for i in self.cast:
+            finalists.append(i)
+        final = Final(self.cast)
+        final.theFinal()
+        print("Obrigado por jogar nosso joguinho")
+        print("Desenvolvido por BlackHAts")
+
 
 if __name__ == '__main__':
     game = Game()

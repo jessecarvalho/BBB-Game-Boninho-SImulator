@@ -64,7 +64,7 @@ class Prove:
     def actProve(self, proveType):
         self.proveType = proveType
         # Roteiro inicial de decisão do usuário
-        print(f'          Escolha a prova do {proveType} dessa semana:         ')
+        print(f'        Escolha a prova do {proveType} dessa semana:         ')
         print("Para escolher digite o número ao lado da prova desejada")
         print("----------------------------------------------------------")
         self.privileged = self.showHabilitys("Arremesso de dardos")
@@ -107,7 +107,6 @@ class Prove:
         # Setar o líder a partir do vencedor
         leader = self.event()
         print(f'{leader.name} venceu a prova e será o lider da semana!')
-        print("_______________________________________________________")
         # Retornar líder
         return leader
 
@@ -118,6 +117,6 @@ class Prove:
         # Chamar o método de realização da prova
         # Setar o anjo a partir do vencedor
         angel = self.event()
-        print(f'{angel.name} venceu a prova e será o lider da semana!')
+        print(f'{angel.name} venceu a prova e será o anjo da semana!')
         # Retornar o anjo
         return angel

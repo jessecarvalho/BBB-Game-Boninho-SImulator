@@ -6,11 +6,8 @@ from time import sleep
 class Cast:
     # Método de inicialização da classe
     def __init__(self):
-        # Número de participantes gerados aleatóriamente sendo no minimo 16
-        # e no máximo 22
-        self.numParticipant = randint(16, 22)
         # "vida" de cada participante setado incialmente em 0
-        self.life = 0;
+        self.life = 0
     # Método para criação do elenco
 
 
@@ -25,8 +22,19 @@ class Cast:
         print(f'% de apoiadores: {person.support}')
         print('-----------------------------')
 
+    def totalParticipants(self):
+        print("Quantos participantes irão participar desta edição?")
+        numParticipantes = int(input("> "))
+        if 6 <= numParticipantes <= 22:
+            print("Número de participantes cadastrado.")
+            self.numParticipant = numParticipantes
+        else:
+            print("Por favor, o elenco terá de ter no minimo 6 e no máximo 22 participantes.")
+            print("--------------------------------------------------------------------------")
+            self.totalParticipants()
 
     def newCastGenerator(self):
+        self.totalParticipants()
         i = 0
         self.castList = []
         while i < self.numParticipant:
@@ -50,6 +58,7 @@ class Cast:
         return self.castList
 
     def castGenerator(self):
+        self.totalParticipants()
         # Contador setado em 0
         i = 0
         # Lista vazia criada para armazenar o elenco

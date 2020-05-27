@@ -7,12 +7,11 @@ Feito:
 [x] Desenvolver sistema de eliminação.
 [x] Desenvolver apoio do público ao personagem.
 [x] Automatizar votos de eliminação permitindo ao player apenas influênciar na decisão e não mais toma-la sozinho.
-
+[x] Desenvolver eventos.
+[x] Corrigir bugs
 
 Atualizações futuras:
 [] Atualizar projeto para entrar ao padrão de projeto MVC.
 [] Criar visual do game.
-[] Criar relacionamento entre personagens.
-[] Permitir que personagens tomem suas decisões baseado em seus relacionamentos e características.
-[] Desenvolver eventos.
 [] Desenvolver a final.
+[] Desenvolver forma de player modificar resultados
